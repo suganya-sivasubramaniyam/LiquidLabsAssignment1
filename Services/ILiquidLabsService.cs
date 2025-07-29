@@ -6,5 +6,6 @@ namespace LiquidLapsAPI.Services
     {
         Task<List<LiquidLabsModel>> GetAll();
         Task<LiquidLabsModel> GetById(int id);
+        Task<List<LiquidLabsModel>> GetByUserId(int UserId);
     }
 }

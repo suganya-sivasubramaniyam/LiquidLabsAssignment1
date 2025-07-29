@@ -1,7 +1,6 @@
 ﻿using LiquidLapsAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LiquidLapsAPI.Controllers
 {
@@ -14,38 +13,68 @@ namespace LiquidLapsAPI.Controllers
         {
             _liquidLabsService = liquidLabsService;
         }
-        // GET: api/<LiquidLabsController1>
+        // GET: api/<LiquidLabsController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var result = await _liquidLabsService.GetAll();
-            return Ok(result);
+            try
+            {
+                var result = await _liquidLabsService.GetAll();
+                if (result == null) { 
+                    return NotFound("data not found");
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+           
         }
 
-        // GET api/<LiquidLabsController1>/5
+        // GET api/<LiquidLabsController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var result = await _liquidLabsService.GetById(id);
-            return Ok(result);
+            try
+            {
+                var result = await _liquidLabsService.GetById(id);
+                if (result == null)
+                {
+                    return NotFound("data not found");
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
         }
 
-        //// POST api/<LiquidLabsController1>
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
+        // GET api/<LiquidLabsController>/5
+        [HttpGet("UserId/{userId}")]
+        public async Task<IActionResult> GetByUserId(int userId)
+        {
+            try
+            {
+                var result = await _liquidLabsService.GetByUserId(userId);
+                if (result == null)
+                {
+                    return NotFound("data not found");
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
 
-        //// PUT api/<LiquidLabsController1>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
+                return BadRequest(ex.Message);
+            }
 
-        //// DELETE api/<LiquidLabsController1>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        }
+
+
     }
 }
