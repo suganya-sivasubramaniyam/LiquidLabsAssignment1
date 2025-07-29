@@ -1,0 +1,6 @@
+﻿CREATE TABLE Labs(
+Id INT PRIMARY KEY,
+Title NVARCHAR(200),
+UserId INT,
+Completed BIT
+);
